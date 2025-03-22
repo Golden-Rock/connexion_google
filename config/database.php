@@ -32,5 +32,5 @@ class Database {
     public function closeConnection() {
         $this->conn = null;
     }
-
+ 
 }
