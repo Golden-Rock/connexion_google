@@ -1,0 +1,47 @@
+
+    <div class="row">
+      <div class="col-md-12 bg-primary text-white p-4 text-center mb-4">
+        <h1>Démo Connexion à la Base de Données</h1>
+      </div>
+      
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            Liste des utilisateurs
+          </div>
+          <div class="card-body">
+            <?php if (empty($users)): ?>
+              <div class="alert alert-info">Aucun utilisateur trouvé ou table non existante.</div>
+            <?php else: ?>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <?php foreach (array_keys($users[0]) as $column): ?>
+                      <th><?= htmlspecialchars($column) ?></th>
+                    <?php endforeach; ?>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($users as $user): ?>
+                    <tr>
+                      <?php foreach ($user as $value): ?>
+                        <td><?= htmlspecialchars($value) ?></td>
+                      <?php endforeach; ?>
+                    </tr>
+                  <?php endforeach; ?>
+                </tbody>
+              </table>
+            <?php endif; ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+// Exemple d'utilisation
+try {
+    $users = $database->query('SELECT * FROM "user"')->fetchAll();
+} catch (PDOException $e) {
+    $users = [];
+    // Pour le développement, on peut afficher l'erreur
+    // echo "Erreur: " . $e->getMessage();
+}
