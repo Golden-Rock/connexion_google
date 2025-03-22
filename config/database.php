@@ -29,4 +29,8 @@ class Database {
         $stmt->execute($params);
         return $stmt;
     }
+    public function closeConnection() {
+        $this->conn = null;
+    }
+
 }
