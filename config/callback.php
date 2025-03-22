@@ -39,7 +39,6 @@ try {
     // Créer ou mettre à jour l'utilisateur dans la base de données
     $userModel = new User();
     $user = $userModel->createOrUpdateFromGoogle($userInfo);
-    echo $userInfo;
     
     if (!$user) {
         throw new Exception("Impossible de créer ou mettre à jour l'utilisateur");
@@ -52,24 +51,8 @@ try {
     header('Location: ../private.php');
     
 } catch (Exception $e) {
-    // En cas d'erreur, afficher un message d'erreur
-    echo '<!DOCTYPE html>
-    <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <title>Erreur d\'authentification</title>
-    </head>
-    <body>
-        <div class="container mt-5">
-            <div class="alert alert-danger">
-                <h4 class="alert-heading">Erreur d\'authentification!</h4>
-                <p>' . htmlspecialchars($e->getMessage()) . '</p>
-                <hr>
-                <a href="index.php" class="btn btn-primary">Retour à l\'accueil</a>
-            </div>
-        </div>
-    </body>
-    </html>';
+    // Rediriger vers la page d'erreur avec le message
+    $errorMessage = urlencode($e->getMessage());
+    header("Location: ../error.php?error=$errorMessage");
+    exit;
 } 
